@@ -15,8 +15,9 @@ def main(args):
 	parser.add_argument('--infile', help="Use objects from here", required=True)
 	parser.add_argument('--resolution_percent', help="Resolution percent as an int", type=int, required=True)
 	parser.add_argument('--render_device', help="use the string: 'CPU' or 'GPU'", type=str, required=True)
-	parser.add_argument('--project_name', help="use the string: 'CPU' or 'GPU'", type=str, required=True)
-	parser.add_argument('--part_name', help="use the string: 'CPU' or 'GPU'", type=str, required=True)
+	parser.add_argument('--project_name', help="The name of the project", type=str, required=True)
+	parser.add_argument('--part_name', help="The name of the part", type=str, required=True)
+	parser.add_argument('--part_version', help="The version number", type=str, required=True)
 	config = parser.parse_args(args)
 	full_outpath = os.getcwd() + '../' + config.outfile
 	full_inpath = os.getcwd() + '../' + config.infile
@@ -38,6 +39,7 @@ def main(args):
 			obj.instance_collection = collection
 	bpy.data.objects["Project"].data.body = config.project_name
 	bpy.data.objects["DrawingName"].data.body = config.part_name
+	bpy.data.objects["VersionHash"].data.body = config.part_version
 	
 	render.render(full_outpath, config.resolution_percent, config.render_device)
 
